@@ -7,9 +7,9 @@ const FiberMap = lazy(() => import('./HubFiber'));
 export interface HubNode { id: string; label: string; kind: 'gateway'|'model'|'app'|'connector'; status: string; }
 
 function colColor(s: string) {
-  return s === 'connected' || s === 'healthy' || s === 'gateway' ? '#3b82f6'
-    : s === 'degraded' || s === 'fallback' ? '#f59e0b'
-    : s === 'blocked' || s === 'down' ? '#ef4444' : '#64748b';
+  return s === 'connected' || s === 'healthy' || s === 'gateway' ? '#34d399'
+    : s === 'degraded' || s === 'fallback' ? '#fbbf24'
+    : s === 'blocked' || s === 'down' ? '#f87171' : '#64748b';
 }
 
 // 2D fallback mirrors the 3D spatial hierarchy: inputs LEFT, gateway CENTER, models RIGHT.
@@ -30,7 +30,7 @@ function Fallback2D({ nodes, onPick }: { nodes: HubNode[]; onPick?: (id: string)
           return (
             <g key={n.id} onClick={() => onPick?.(n.id)} style={{ cursor: 'pointer' }}>
               <path d={`M ${x + 34} ${y} Q 220 ${y} 285 150`} stroke={colColor(n.status)} fill="none" strokeOpacity={0.55} strokeDasharray={n.status === 'blocked' ? '4 4' : undefined} />
-              <rect x={x - 34} y={y - 15} width={68} height={30} rx={8} fill="#12161d" stroke={colColor(n.status)} />
+              <rect x={x - 34} y={y - 15} width={68} height={30} rx={8} fill="#0e1424" stroke={colColor(n.status)} />
               <text x={x} y={y + 4} textAnchor="middle" fill="#c7d0dd" fontSize={9}>{n.label.slice(0, 12)}</text>
             </g>
           );
@@ -40,13 +40,13 @@ function Fallback2D({ nodes, onPick }: { nodes: HubNode[]; onPick?: (id: string)
           return (
             <g key={n.id} onClick={() => onPick?.(n.id)} style={{ cursor: 'pointer' }}>
               <path d={`M 355 150 Q 430 ${y} ${x - 34} ${y}`} stroke={colColor(n.status)} fill="none" strokeOpacity={0.55} strokeDasharray={n.status === 'blocked' ? '4 4' : undefined} />
-              <rect x={x - 34} y={y - 15} width={68} height={30} rx={8} fill="#12161d" stroke={colColor(n.status)} />
+              <rect x={x - 34} y={y - 15} width={68} height={30} rx={8} fill="#0e1424" stroke={colColor(n.status)} />
               <text x={x} y={y + 4} textAnchor="middle" fill="#c7d0dd" fontSize={9}>{n.label.slice(0, 12)}</text>
             </g>
           );
         })}
-        <text x={110} y={22} fill="#5b6575" fontSize={10} textAnchor="middle">INPUTS / TOOLS</text>
-        <text x={530} y={22} fill="#5b6575" fontSize={10} textAnchor="middle">MODELS</text>
+        <text x={110} y={22} fill="#5a6578" fontSize={10} textAnchor="middle">INPUTS / TOOLS</text>
+        <text x={530} y={22} fill="#5a6578" fontSize={10} textAnchor="middle">MODELS</text>
       </svg>
       <div className="flex gap-2 flex-wrap mt-1">
         {nodes.filter(n => n.kind !== 'gateway').map(n => (
@@ -70,21 +70,22 @@ export default function HubMap({ nodes, onPick, compact, variant = 'overview' }:
   const show3d = use3d && webglOk;
   return (
     <div className="card p-0 overflow-hidden">
-      <div className="flex items-center justify-between px-3 py-2 border-b border-[#1f2733]">
-        <div className="text-[12px] text-[#8b94a3]">
-          Hub map · <span className="text-white font-medium">inputs → gateway → models</span> · hover to inspect, click to open
+      <div className="flex items-center justify-between px-4 py-2.5 border-b border-[#1c2740]">
+        <div className="text-[12px] text-[#8d99ae]">
+          <span className="hud-label !text-[10px] mr-2">Routing topology</span>
+          inputs → gateway → models · hover to inspect, click to open
         </div>
         <button className="btn !py-1 !px-2 !text-[11px]" onClick={() => setUse3d(v => !v)}>{show3d ? '2D fallback' : '3D view'}</button>
       </div>
       {show3d ? (
-        <Suspense fallback={<div className="p-8 text-[13px] text-[#8b94a3]">Loading 3D…</div>}>
+        <Suspense fallback={<div className="p-8 text-[13px] text-[#8d99ae]">Loading 3D…</div>}>
           <FiberMap nodes={nodes} onPick={onPick} height={compact ? 320 : 380} story={variant === 'overview'} />
         </Suspense>
       ) : (
         <Fallback2D nodes={nodes} onPick={onPick} />
       )}
-      <div className="px-3 py-2 border-t border-[#1f2733] text-[11px] text-[#5b6575]">
-        3D only here + Connectors. Charts/routing/security stay 2D. <Link className="text-blue-400" to="/traces">Open live trace →</Link>
+      <div className="px-4 py-2 border-t border-[#1c2740] text-[11px] text-[#5a6578]">
+        3D only here + Connectors. Charts, routing, security stay 2D. <Link className="text-blue-400" to="/traces">Open live trace →</Link>
       </div>
     </div>
   );

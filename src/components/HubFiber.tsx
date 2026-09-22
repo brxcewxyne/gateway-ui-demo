@@ -20,9 +20,9 @@ const SCENARIOS: Scenario[] = [
 ];
 
 const STATUS_COLOR: Record<string, string> = {
-  healthy: '#3b82f6', connected: '#3b82f6', gateway: '#3b82f6',
-  degraded: '#f59e0b', fallback: '#f59e0b',
-  blocked: '#ef4444', down: '#ef4444', disabled: '#475569',
+  healthy: '#34d399', connected: '#34d399', gateway: '#3b82f6',
+  degraded: '#fbbf24', fallback: '#fbbf24',
+  blocked: '#f87171', down: '#f87171', disabled: '#475569',
 };
 const colorFor = (s: string) => STATUS_COLOR[s] ?? '#64748b';
 
@@ -129,9 +129,11 @@ function NodeView({ n, base, live, drift, entry, hovered, selected, dimmed, onHo
           onMouseEnter={() => onHover(n.id)} onMouseLeave={() => onHover(null)}
           style={{
             pointerEvents: n.kind === 'gateway' ? 'none' : 'auto',
-            background: selected ? 'rgba(37,99,235,.22)' : 'rgba(13,17,23,.82)',
-            border: `1px solid ${selected ? '#3b82f6' : '#2a3546'}`,
-            color: n.kind === 'gateway' ? '#fff' : '#c7d0dd',
+            background: selected ? 'rgba(59,130,246,.24)' : 'rgba(13,18,32,.85)',
+            backdropFilter: 'blur(8px)',
+            border: `1px solid ${selected ? 'rgba(147,183,255,.7)' : 'rgba(125,155,225,.22)'}`,
+            boxShadow: selected ? '0 0 16px rgba(59,130,246,.45)' : '0 6px 18px rgba(0,0,0,.5)',
+            color: n.kind === 'gateway' ? '#fff' : '#d4dbe7',
             fontSize: n.kind === 'gateway' ? 12 : 11, fontWeight: n.kind === 'gateway' ? 700 : 500,
             letterSpacing: n.kind === 'gateway' ? '0.08em' : 'normal',
             padding: '3px 9px', borderRadius: 99, whiteSpace: 'nowrap', cursor: n.kind === 'gateway' ? 'default' : 'pointer',
@@ -404,18 +406,18 @@ export default function HubFiber({ nodes, onPick, height, story = false }:
       {story && (
         <div className="absolute left-3 bottom-3 right-3 flex items-end justify-between gap-2 pointer-events-none">
           <div key={caption ? `${caption.idx}-${caption.phase}` : 'idle'}
-            className="pointer-events-auto max-w-[430px] rounded-[10px] border border-[#2a3546] bg-[#0d1117]/90 px-3 py-2 backdrop-blur"
-            style={{ animation: 'gw-fade .45s power2 ease-out' }}>
-            <div className="flex items-center gap-2 text-[11px] text-[#8b94a3]">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block animate-pulse" />
-              LIVE ROUTING {caption ? `· ${caption.idx + 1}/3` : ''} {caption?.phase === 'routed' ? '· decided ✓' : caption ? '· analyzing…' : ''}
+            className="glass pointer-events-auto max-w-[430px] px-3.5 py-2.5"
+            style={{ animation: 'gw-fade .45s ease-out' }}>
+            <div className="hud-label !text-[10px] flex items-center gap-2">
+              <span className="dot dot-ok live-ring text-emerald-400" />
+              Live routing {caption ? `· ${caption.idx + 1}/3` : ''} {caption?.phase === 'routed' ? '· decided ✓' : caption ? '· analyzing…' : ''}
             </div>
             <div className="text-[13px] text-white font-medium mt-0.5">{caption?.title ?? 'Waiting for first request…'}</div>
-            <div className="text-[11.5px] text-[#8b94a3]">{caption?.sub ?? 'Apps → Gateway → model'}</div>
+            <div className="text-[11.5px] text-[#8d99ae]">{caption?.sub ?? 'Apps → Gateway → model'}</div>
           </div>
           <div className="hidden sm:flex gap-1.5 pointer-events-auto">
             {[0, 1, 2].map(i => (
-              <span key={i} className="w-6 h-1 rounded-full" style={{ background: caption?.idx === i ? '#3b82f6' : '#243044' }} />
+              <span key={i} className="w-6 h-1 rounded-full" style={{ background: caption?.idx === i ? '#3b82f6' : '#1a2440' }} />
             ))}
           </div>
         </div>
