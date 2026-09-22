@@ -9,7 +9,7 @@ export function Kpi({ label, value, sub, to, accent }: { label: string; value: s
         <span className="kpi-label">{label}</span>
       </div>
       <div className="metric text-[22px] mt-1">{value}</div>
-      <div className="text-[12px] text-[#8d99ae] mt-0.5">{sub}</div>
+      <div className="text-[12px] text-[#5B6B82] mt-0.5">{sub}</div>
     </Link>
   );
 }
@@ -29,8 +29,8 @@ export function PageHead({ eyebrow, title, sub, right }: { eyebrow: string; titl
         <div className="hud-label mb-1.5 flex items-center gap-2">
           <span className="w-4 h-px bg-[#3b82f6] inline-block" />{eyebrow}
         </div>
-        <h1 className="text-[22px] font-semibold text-white m-0 tracking-[-0.01em]">{title}</h1>
-        <p className="text-[13px] text-[#8d99ae] mt-1 max-w-[640px]">{sub}</p>
+        <h1 className="text-[22px] font-semibold text-[#0E1626] m-0 tracking-[-0.01em]">{title}</h1>
+        <p className="text-[13px] text-[#5B6B82] mt-1 max-w-[640px]">{sub}</p>
       </div>
       <div className="flex gap-2 flex-wrap">{right}</div>
     </div>
@@ -54,8 +54,8 @@ export function Pipeline({ steps, active }: { steps: string[]; active?: number }
     <div className="flex items-center gap-1 flex-wrap">
       {steps.map((s, i) => (
         <span key={s} className="flex items-center gap-1">
-          <span className={`text-[12px] px-2.5 py-1 rounded-full border ${i === (active ?? steps.length - 1) ? 'border-blue-500/60 bg-blue-500/10 text-white' : 'border-[#2b3b5e] text-[#8d99ae]'}`}>{s}</span>
-          {i < steps.length - 1 && <span className="text-[#3a4a6e] mx-0.5">→</span>}
+          <span className={`text-[12px] px-2.5 py-1 rounded-full border ${i === (active ?? steps.length - 1) ? 'border-blue-500/60 bg-blue-500/10 text-[#0E1626]' : 'border-[#D3DDE9] text-[#5B6B82]'}`}>{s}</span>
+          {i < steps.length - 1 && <span className="text-[#9DB0C7] mx-0.5">→</span>}
         </span>
       ))}
     </div>
@@ -73,8 +73,8 @@ export function UsageBars({ rows }: { rows: { label: string; pct: number; color:
       {rows.map(r => (
         <div key={r.label}>
           <div className="flex justify-between text-[12px] mb-1">
-            <span className="text-[#c7d0dd] font-medium">{r.label} {r.meta && <span className="text-[#5a6578] font-normal">· {r.meta}</span>}</span>
-            <span className="mono text-white">{r.pct}%</span>
+            <span className="text-[#33415C] font-medium">{r.label} {r.meta && <span className="text-[#8FA0B5] font-normal">· {r.meta}</span>}</span>
+            <span className="mono text-[#0E1626]">{r.pct}%</span>
           </div>
           <div className="ubar"><div style={{ width: `${r.pct}%`, background: `linear-gradient(90deg, ${r.color}99, ${r.color})`, boxShadow: `0 0 10px ${r.color}55` }} /></div>
         </div>

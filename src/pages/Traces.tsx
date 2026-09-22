@@ -11,13 +11,13 @@ export function Traces() {
         right={<button className="btn btn-primary" onClick={() => nav('/routing')}>Replay in routing →</button>} />
       <div className="card overflow-hidden">
         <table className="w-full text-[13px]">
-          <thead><tr className="text-left text-[#8d99ae] text-[11.5px] uppercase border-b border-[#1c2740]"><th className="p-3">Request</th><th>App / Team</th><th>Task</th><th>Selected</th><th>Cost</th><th>Latency</th><th>Decision</th></tr></thead>
+          <thead><tr className="text-left text-[#5B6B82] text-[11.5px] uppercase border-b border-[#E3E9F2]"><th className="p-3">Request</th><th>App / Team</th><th>Task</th><th>Selected</th><th>Cost</th><th>Latency</th><th>Decision</th></tr></thead>
           <tbody>{TRACES.map(t => (
-            <tr key={t.id} className="table-row border-b border-[#1a2440] cursor-pointer" onClick={() => nav(`/traces/${t.id}`)}>
-              <td className="p-3 mono text-white">#{t.id}</td>
-              <td className="text-[12px]">{t.app}<br /><span className="text-[#8d99ae]">{t.team}</span></td>
+            <tr key={t.id} className="table-row border-b border-[#E8EDF4] cursor-pointer" onClick={() => nav(`/traces/${t.id}`)}>
+              <td className="p-3 mono text-[#0E1626]">#{t.id}</td>
+              <td className="text-[12px]">{t.app}<br /><span className="text-[#5B6B82]">{t.team}</span></td>
               <td className="text-[12px]">{t.task} · {t.difficulty}</td>
-              <td className="text-[12px] text-white">{t.selected}</td>
+              <td className="text-[12px] text-[#0E1626]">{t.selected}</td>
               <td><CostCell v={t.cost} /></td>
               <td className="mono">{t.latency ? `${t.latency}s` : '—'}</td>
               <td><span className="flex items-center gap-1.5 text-[12px]"><StatusDot s={t.decision} /> {t.decision}</span></td>
@@ -52,15 +52,15 @@ export function TraceDetail() {
         <div className="card p-4">
           {steps.map((s, i) => (
             <div key={i} className="flex gap-3">
-              <div className="flex flex-col items-center"><div className="step-dot">{s.s === 'ok' ? '✓' : s.s === 'block' ? '✕' : s.s === 'warn' ? '!' : '·'}</div>{i < steps.length - 1 && <div className="w-px flex-1 bg-[#1a2440]" />}</div>
-              <div className="pb-4"><div className="text-[13.5px] text-white">{s.l}</div><div className="text-[12.5px] text-[#8d99ae]">{s.d}</div></div>
+              <div className="flex flex-col items-center"><div className="step-dot">{s.s === 'ok' ? '✓' : s.s === 'block' ? '✕' : s.s === 'warn' ? '!' : '·'}</div>{i < steps.length - 1 && <div className="w-px flex-1 bg-[#E2E9F3]" />}</div>
+              <div className="pb-4"><div className="text-[13.5px] text-[#0E1626]">{s.l}</div><div className="text-[12.5px] text-[#5B6B82]">{s.d}</div></div>
             </div>
           ))}
         </div>
         <div className="flex flex-col gap-3">
-          <div className="card p-4"><div className="kpi-label">Decision summary</div><div className="text-white text-[15px] mt-1">{t.selected}</div><div className="text-[13px] text-[#8d99ae] mt-1">{t.reason}</div>
-            <div className="flex gap-4 mt-2 mono text-[12px] text-[#8d99ae]"><span>cost {fmt$(t.cost)}</span><span>lat {t.latency}s</span><span className="flex items-center gap-1"><StatusDot s={t.decision} />{t.decision}</span></div></div>
-          <div className="card p-4 text-[12.5px] text-[#8d99ae]">Next: <Link className="text-blue-400" to="/audit">see in audit →</Link> · <Link className="text-blue-400" to="/resources">check team budget →</Link> · <Link className="text-blue-400" to="/routing">tune routing →</Link></div>
+          <div className="card p-4"><div className="kpi-label">Decision summary</div><div className="text-[#0E1626] text-[15px] mt-1">{t.selected}</div><div className="text-[13px] text-[#5B6B82] mt-1">{t.reason}</div>
+            <div className="flex gap-4 mt-2 mono text-[12px] text-[#5B6B82]"><span>cost {fmt$(t.cost)}</span><span>lat {t.latency}s</span><span className="flex items-center gap-1"><StatusDot s={t.decision} />{t.decision}</span></div></div>
+          <div className="card p-4 text-[12.5px] text-[#5B6B82]">Next: <Link className="text-[#2470D8]" to="/audit">see in audit →</Link> · <Link className="text-[#2470D8]" to="/resources">check team budget →</Link> · <Link className="text-[#2470D8]" to="/routing">tune routing →</Link></div>
         </div>
       </div>
     </div>

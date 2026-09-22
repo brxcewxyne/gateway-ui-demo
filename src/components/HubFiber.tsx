@@ -120,7 +120,7 @@ function NodeView({ n, base, live, drift, entry, hovered, selected, dimmed, onHo
       {n.kind === 'gateway' && (
         <mesh>
           <sphereGeometry args={[r * 0.45, 20, 20]} />
-          <meshBasicMaterial color="#dbeafe" transparent opacity={0.85} />
+          <meshBasicMaterial color="#2f7de1" transparent opacity={0.9} />
         </mesh>
       )}
       <Html center distanceFactor={9} position={[0, n.kind === 'gateway' ? -0.85 : -0.58, 0]} zIndexRange={[10, 0]}
@@ -129,11 +129,11 @@ function NodeView({ n, base, live, drift, entry, hovered, selected, dimmed, onHo
           onMouseEnter={() => onHover(n.id)} onMouseLeave={() => onHover(null)}
           style={{
             pointerEvents: n.kind === 'gateway' ? 'none' : 'auto',
-            background: selected ? 'rgba(59,130,246,.24)' : 'rgba(13,18,32,.85)',
+            background: selected ? 'rgba(94,167,255,.22)' : 'rgba(255,255,255,.85)',
             backdropFilter: 'blur(8px)',
-            border: `1px solid ${selected ? 'rgba(147,183,255,.7)' : 'rgba(125,155,225,.22)'}`,
-            boxShadow: selected ? '0 0 16px rgba(59,130,246,.45)' : '0 6px 18px rgba(0,0,0,.5)',
-            color: n.kind === 'gateway' ? '#fff' : '#d4dbe7',
+            border: `1px solid ${selected ? 'rgba(47,125,225,.55)' : 'rgba(190,205,230,.9)'}`,
+            boxShadow: selected ? '0 0 16px rgba(94,167,255,.5)' : '0 6px 18px rgba(70,100,160,.22)',
+            color: n.kind === 'gateway' ? '#14489B' : '#33415C',
             fontSize: n.kind === 'gateway' ? 12 : 11, fontWeight: n.kind === 'gateway' ? 700 : 500,
             letterSpacing: n.kind === 'gateway' ? '0.08em' : 'normal',
             padding: '3px 9px', borderRadius: 99, whiteSpace: 'nowrap', cursor: n.kind === 'gateway' ? 'default' : 'pointer',
@@ -225,7 +225,7 @@ function Particle({ curve, active }: { curve: React.MutableRefObject<THREE.Quadr
   return (
     <mesh ref={mesh} visible={false}>
       <sphereGeometry args={[0.075, 14, 14]} />
-      <meshBasicMaterial color="#bfdbfe" transparent opacity={0.95} />
+      <meshBasicMaterial color="#2f7de1" transparent opacity={0.95} />
     </mesh>
   );
 }
@@ -334,9 +334,9 @@ function Scene({ nodes, onPick, story, visibleRef, timeScale, onCaption }:
   return (
     <>
       <CameraRig pointer={pointer} enabled={timeScale > 0} />
-      <ambientLight intensity={0.9} />
-      <hemisphereLight args={['#8fb4ff', '#0b0e13', 0.35]} />
-      <directionalLight position={[4, 5, 4]} intensity={0.9} />
+      <ambientLight intensity={1.15} />
+      <hemisphereLight args={['#ffffff', '#dfe8f5', 0.9]} />
+      <directionalLight position={[4, 5, 4]} intensity={1.4} />
       <NodeView n={{ id: 'gw', label: 'AI Gateway', kind: 'gateway', status: 'gateway' }}
         base={base.get('gw')!} live={live.get('gw')!} drift={drifts.get('gw')!} entry={nodeEntry.current.get('gw')!}
         hovered={hovered === 'gw'} selected={selected === 'gw'} dimmed={!!focus && focus !== 'gw'}
@@ -412,12 +412,12 @@ export default function HubFiber({ nodes, onPick, height, story = false }:
               <span className="dot dot-ok live-ring text-emerald-400" />
               Live routing {caption ? `· ${caption.idx + 1}/3` : ''} {caption?.phase === 'routed' ? '· decided ✓' : caption ? '· analyzing…' : ''}
             </div>
-            <div className="text-[13px] text-white font-medium mt-0.5">{caption?.title ?? 'Waiting for first request…'}</div>
-            <div className="text-[11.5px] text-[#8d99ae]">{caption?.sub ?? 'Apps → Gateway → model'}</div>
+            <div className="text-[13px] text-[#0E1626] font-medium mt-0.5">{caption?.title ?? 'Waiting for first request…'}</div>
+            <div className="text-[11.5px] text-[#5B6B82]">{caption?.sub ?? 'Apps → Gateway → model'}</div>
           </div>
           <div className="hidden sm:flex gap-1.5 pointer-events-auto">
             {[0, 1, 2].map(i => (
-              <span key={i} className="w-6 h-1 rounded-full" style={{ background: caption?.idx === i ? '#3b82f6' : '#1a2440' }} />
+              <span key={i} className="w-6 h-1 rounded-full" style={{ background: caption?.idx === i ? '#3b82f6' : '#E4EAF3' }} />
             ))}
           </div>
         </div>

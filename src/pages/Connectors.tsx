@@ -17,14 +17,14 @@ export default function Connectors() {
       <div className="grid lg:grid-cols-[1.5fr_1fr] gap-3">
         <HubMap compact variant="connectors" nodes={[...connectors.map(c => ({ id: c.id, label: c.name, kind: 'connector' as const, status: c.status }))]} onPick={setSel} />
         <div className="card p-4">
-          <div className="flex items-center justify-between"><div className="text-white font-medium">{cur.name}</div><span className="badge"><StatusDot s={cur.status} /> {cur.status}</span></div>
-          <div className="text-[12px] text-[#8d99ae] mono mt-1">{cur.kind} · {cur.server} · {cur.calls.toLocaleString()} calls · err {cur.errRate}% · {cur.lastSeen}</div>
+          <div className="flex items-center justify-between"><div className="text-[#0E1626] font-medium">{cur.name}</div><span className="badge"><StatusDot s={cur.status} /> {cur.status}</span></div>
+          <div className="text-[12px] text-[#5B6B82] mono mt-1">{cur.kind} · {cur.server} · {cur.calls.toLocaleString()} calls · err {cur.errRate}% · {cur.lastSeen}</div>
           <div className="kpi-label mt-3 mb-1">Tools available</div>
           {cur.tools.map(t => (
             <div key={t.name} className="card p-2.5 mb-1.5 flex items-center justify-between">
-              <div><div className="mono text-[12.5px] text-white">{t.name} <span className="text-[#8d99ae]">{t.readWrite}</span></div>
-                <div className="text-[11.5px] text-[#8d99ae]">risk {t.risk} · {t.access}</div></div>
-              <Link className="text-blue-400 text-[12px]" to="/security">policy →</Link>
+              <div><div className="mono text-[12.5px] text-[#0E1626]">{t.name} <span className="text-[#5B6B82]">{t.readWrite}</span></div>
+                <div className="text-[11.5px] text-[#5B6B82]">risk {t.risk} · {t.access}</div></div>
+              <Link className="text-[#2470D8] text-[12px]" to="/security">policy →</Link>
             </div>
           ))}
           <div className="flex flex-wrap gap-1.5 mt-2">
@@ -33,7 +33,7 @@ export default function Connectors() {
             <button className="btn !text-[12px]" onClick={() => setConnector(cur.id, 'blocked')}>Revoke write</button>
             <button className="btn btn-danger !text-[12px]" onClick={() => setConnector(cur.id, 'disconnected')}>Disable</button>
           </div>
-          <div className="text-[12px] text-[#8d99ae] mt-2">Permission change → <Link className="text-blue-400" to="/security">Security</Link> + <Link className="text-blue-400" to="/audit">Audit log</Link>.</div>
+          <div className="text-[12px] text-[#5B6B82] mt-2">Permission change → <Link className="text-[#2470D8]" to="/security">Security</Link> + <Link className="text-[#2470D8]" to="/audit">Audit log</Link>.</div>
         </div>
       </div>
     </div>
